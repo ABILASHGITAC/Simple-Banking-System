@@ -1,0 +1,133 @@
+"""
+--------------------------------------------------Simple Banking System----------------------------------------------------
+This program essentially simulates basic banking operations such as login, signup, deposit, withdrawal, and balance inquiry. 
+It interacts with the user through input prompts and displays relevant information based on the user's actions.
+
+"""
+
+
+class Bank:
+    def _init_(self, customers_money, customer_user_ids, customer_passwords, user_data,user):
+        #Bank class is initialized with four parameters
+        self.money = customers_money
+        self.ids = customer_user_ids
+        self.password = customer_passwords
+        self.data = user_data
+        self.user = user
+        
+    def banking(self):#The banking method is called to determine whether the user wants to log in or sign up.
+        if self.data == "login":
+            bank.old_account()
+        elif self.data == "signup":
+            bank.create_account()
+
+    def old_account(self): #handles existing user login
+        get_password = input(f"Enter Your password for {self.user}: ") #It prompts the user to enter their password
+
+        if self.user in self.ids:
+            #If the entered password matches the password stored in the database, the user is logged in, and their account details are displayed.
+            print("Account already exists!")
+            if get_password == self.password.get(self.user):
+                print(f"\nWelcome to our bank, {self.ids[self.user]}\nMoney in your Account is {self.money[self.user]}\nYour userid and the password are {self.user} and {get_password} respectively.")
+                bank.customer_pref()
+            else:#If the password is incorrect, the user is prompted to enter the correct password.
+                print('Your Password is incorrect')
+                print("Please enter your correct password")
+                get_password = input(f"Enter Your password for {self.user}: ")
+                           
+                if get_password == self.password.get(self.user):#
+                    print("You Enter password is correct")
+                    print(f"\nWelcome to our bank, {self.ids[self.user]}\nMoney in your Account is {self.money[self.user]}\nYour userid and the password are {self.user} and {get_password} respectively.")
+                    bank.customer_pref()
+                
+        else:
+            print("You don't have a bank account. Please create a new one.")
+            
+    def create_account(self):#The create_account method allows a new user to sign up
+        new_id = input("No Account Found in Bank If you like to create an account, please Type (Yes) else (No): ")
+        if new_id == "Yes":
+            #It prompts the user to enter their name, password, and initial deposit amount
+            name = input("Enter your name: ")
+            password = input("Create your password: ")
+            money = int(input("How much do you want to deposit: "))
+            self.ids[user] = name
+            self.money[user] = money
+            self.password[user] = password
+            print("Account created successfully!")
+            print(f"\nWelcome to our bank, {name}\nMoneyin your Account is {money}\nYour userid and the password are {user} and {password} respectively.")
+            bank.customer_pref()
+            #A new user ID is generated, and the user's details are added to the database.
+        else:
+            print("Thank you For Banking")
+
+    def deposit(self):#allows the user to deposit money into their account
+        dep_amount = int(input("Enter the Amount to deposit: "))
+        if self.user in self.money:
+            self.money[self.user] += dep_amount
+            print("Deposit successful. New balance:", self.money[self.user])
+
+    def withdraw(self):#allows the user to withdraw money from their account
+        wit_amount = int(input("Enter the Amount to Withdraw: "))
+        if self.user in self.money:
+            if self.money[self.user] >= wit_amount:
+                self.money[self.user] -= wit_amount
+                print("Withdrawal successful. New balance:", self.money[self.user])
+            else:
+                print(f"Insufficient balance! Your Account Balance is {self.money[self.user]}")
+
+    def check_balance(self):#displays the current balance of the user's account.
+        if self.user in self.money:
+            print("Current balance:", self.money[self.user])
+
+    def customer_pref(self):#allows the user to choose between depositing, withdrawing, or checking their balance
+        pref = input("Please Enter What you want (Deposit | Withdraw | Current): ")
+        if pref == "Deposit":
+            bank.deposit()
+        elif pref == "Withdraw":
+            bank.withdraw()
+        elif pref == "Current":
+            bank.check_balance()
+
+
+customers_money = {
+    'user1': 5000,
+    'user2': 3000,
+    'user3': 7000,
+    'user4': 4500,
+    'user5': 6000,
+    'user6': 3500,
+    'user7': 8000,
+    'user8': 5500,
+    'user9': 4000,
+    'user10': 7500
+}
+
+customer_user_ids = {
+    'user1': 'Amit',
+    'user2': 'Deepak',
+    'user3': 'Gaurav',
+    'user4': 'Hari',
+    'user5': 'Isha',
+    'user6': 'Jaya',
+    'user7': 'Kiran',
+    'user8': 'Lalita',
+    'user9': 'Manoj',
+    'user10': 'Neha'
+}
+
+customer_passwords = {
+    'user1': 'user@pass1',
+    'user2': 'user@pass2',
+    'user3': 'user@pass3',
+    'user4': 'user@pass4',
+    'user5': 'user@pass5',
+    'user6': 'user@pass6',
+    'user7': 'user@pass7',
+    'user8': 'user@pass8',
+    'user9': 'user@pass9',
+    'user10': 'user@pass10'
+}
+user_data = input("Welcome To The IPCS Bank Account\nPlease Enter if you want to signup or login: ")
+user = input("Enter the Userid: ")
+bank = Bank(customers_money, customer_user_ids, customer_passwords, user_data, user)
+bank.banking()
